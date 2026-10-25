@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CarBug | مرجع صدا و ایرادات خودرو</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0e7c7b"><link rel="icon" href="icon-192.png"><meta name="description" content="مرجع فارسی تشخیص ایراد خودرو از روی صدا، بو و دود؛ با فیلتر، مقایسه و لینک نمونه‌صدا.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@33.0.3/Vazirmatn-font-face.css">
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#eef2f1,#101716);--card:light-dark(#fff,#182221);--ink:light-dark(#14201f,#e6efed);--mute:light-dark(#5b6b69,#9bb0ad);--line:light-dark(#d3dcda,#2b3b39);--acc:light-dark(#0e7c7b,#4fc3c1);--s1:light-dark(#2e7d32,#66bb6a);--s2:light-dark(#c77700,#ffb74d);--s3:light-dark(#c0392b,#ef7a6e)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.9 Vazirmatn,Tahoma,"Segoe UI",sans-serif}
+header,main,footer{max-width:960px;margin:auto;padding-inline:1rem}
+header{padding-top:2rem;padding-bottom:1rem;display:flex;gap:1rem;justify-content:space-between;align-items:flex-start}
+h1{font-size:clamp(1.7rem,5vw,2.6rem);margin:0;line-height:1.3;font-weight:800}
+header p{margin:.4rem 0 0;color:var(--mute);max-width:60ch}
+button,select,input{font:inherit;color:var(--ink)}
+.ico{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.3rem .7rem;cursor:pointer}
+.bar{background:var(--bg);padding:.75rem 0;border-bottom:1px solid var(--line)}
+@media(min-width:700px){.bar{position:sticky;top:0;z-index:5}}
+input[type=search],select{padding:.6rem 1rem;background:var(--card);border:1px solid var(--line);border-radius:8px}
+input[type=search]{width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem;align-items:center}
+.chips b{font-size:.85rem;color:var(--mute);margin-inline-end:.2rem}
+button.chip{font-size:.9rem;padding:.1rem .8rem;border-radius:99px;border:1px solid var(--line);background:var(--card);cursor:pointer}
+button.chip[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.row{display:flex;justify-content:space-between;align-items:center;margin:1rem 0 .5rem;color:var(--mute);font-size:.9rem;gap:1rem}
+article{scroll-margin-top:12rem;background:var(--card);border:1px solid var(--line);border-inline-start:6px solid var(--c);border-radius:8px;padding:1rem 1.2rem;margin-bottom:.8rem}
+article:target{outline:3px solid var(--acc)}
+article h2{font-size:1.1rem;margin:0 0 .3rem}
+.meta{font-size:.85rem;color:var(--mute);display:flex;gap:.8rem;flex-wrap:wrap;margin:0}
+.sev{color:var(--c);font-weight:700}
+.snd{margin:.5rem 0;padding:.5rem .8rem;background:var(--bg);border-radius:6px}
+article ul{margin:.2rem 0;padding-inline-start:1.3rem}
+.tools{display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin-top:.6rem;font-size:.85rem;align-items:center}
+.tools button{background:none;border:0;cursor:pointer;padding:0;color:var(--acc)}
+.tools a{color:var(--acc)}
+#cbar{position:fixed;inset:auto 0 0 0;background:var(--card);border-top:1px solid var(--line);padding:.7rem 1rem;display:flex;gap:.6rem;justify-content:center;z-index:9}
+#cbar[hidden]{display:none}
+dialog{width:min(960px,96vw);max-height:90vh;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:start;vertical-align:top}
+th{background:var(--bg);white-space:nowrap}
+footer{padding-block:1.5rem 5rem;color:var(--mute);font-size:.85rem}
+.z{fill:var(--acc);fill-opacity:.12;stroke:var(--acc);stroke-width:1.5;cursor:pointer}
+.z:hover,.z[aria-pressed=true]{fill-opacity:.4}
+details{margin-top:1rem}summary{cursor:pointer;color:var(--mute)}
+svg text{fill:var(--ink);font-size:11px;text-anchor:middle;pointer-events:none}
+audio{width:100%;margin:.4rem 0}
+.hb{display:flex;gap:.4rem;flex-wrap:wrap}
+@media print{.bar,.tools,#cbar,.ico{display:none}article{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+<div><h1 dir="ltr">CarBug</h1><p>مرجع تشخیص ایراد خودرو از روی صدا، بو و دود. فیلتر کنید، موردها را کنار هم مقایسه کنید و نمونه‌صدا را در یوتیوب و اسپاتیفای بشنوید.</p></div>
+<div class="hb"><button class="ico" id="bw">🩺 عیب‌یاب</button><button class="ico" id="bl">🚦 چراغ‌های داشبورد</button><button class="ico" id="theme" aria-label="تغییر تم">🌓</button></div>
+</header>
+<main>
+<div class="bar">
+<input type="search" id="q" placeholder="جستجو: «ترمز»، «جیغ»، «دود سفید»…" aria-label="جستجو">
+<div class="chips" id="cats"><b>دسته:</b></div>
+<div class="chips" id="types"><b>نوع صدا:</b></div>
+<div class="chips" id="sevs"><b>شدت:</b></div>
+<div class="chips" id="mods"><b>خودرو:</b></div>
+<div class="chips" id="favs"><b>نمایش:</b></div>
+</div>
+<details open><summary>نقشه‌ی محل صدا (روی بخشی از خودرو بزنید)</summary>
+<svg viewBox="0 0 420 150" style="max-width:520px;width:100%" role="group" aria-label="نقشه‌ی خودرو">
+<path d="M15 112V88Q60 78 105 66L160 40H290L350 66L405 86V112Z" fill="none" stroke="currentColor" stroke-width="2"/>
+<rect class="z" data-z="front" tabindex="0" role="button" aria-label="جلو و موتور" x="18" y="68" width="100" height="40" rx="6"/><text x="68" y="92">موتور و جلو</text>
+<rect class="z" data-z="cabin" tabindex="0" role="button" aria-label="کابین" x="124" y="44" width="160" height="38" rx="6"/><text x="204" y="67">کابین و کولر</text>
+<rect class="z" data-z="under" tabindex="0" role="button" aria-label="زیر و عقب خودرو" x="124" y="86" width="270" height="22" rx="6"/><text x="259" y="101">زیر خودرو، گیربکس و اگزوز</text>
+<circle class="z" data-z="wheel" tabindex="0" role="button" aria-label="چرخ‌ها" cx="75" cy="115" r="22"/><circle class="z" data-z="wheel" tabindex="0" role="button" aria-label="چرخ‌ها" cx="335" cy="115" r="22"/><text x="75" y="119">چرخ</text><text x="335" y="119">چرخ</text>
+<rect class="z" data-z="smoke" tabindex="0" role="button" aria-label="بو و دود" x="320" y="14" width="90" height="22" rx="11"/><text x="365" y="29">بو و دود</text>
+</svg></details>
+<div class="row"><span id="count" aria-live="polite"></span>
+<select id="sort" aria-label="مرتب‌سازی"><option value="0">ترتیب پیش‌فرض</option><option value="1">خطرناک‌ترین اول</option></select></div>
+<div id="list"></div>
+</main>
+<footer>این فهرست فقط راهنما است و جایگزین تشخیص مکانیک یا دستگاه دیاگ نیست. لینک‌های صدا نتیجه‌ی جستجو در سایت‌های بیرونی هستند. مشارکت: فایل data.js را ویرایش و Pull Request بفرستید.</footer>
+<div id="cbar" hidden><button class="ico" id="go"></button><button class="ico" id="clr">پاک‌کردن انتخاب</button></div>
+<dialog id="wz"><button class="ico" data-x>بستن</button><h2>عیب‌یاب</h2><div id="wb"></div></dialog>
+<dialog id="lt"><button class="ico" data-x>بستن</button><h2>چراغ‌های داشبورد</h2><div id="lb"></div></dialog>
+<dialog id="dlg"><button class="ico" id="close">بستن</button><div class="tw" id="tbl"></div></dialog>
+<script src="data.js"></script>
+<script>
+const SEV={1:["جزئی","var(--s1)"],2:["مهم","var(--s2)"],3:["خطرناک","var(--s3)"]};
+const C={"موتور":"engine","ترمز":"brake","تعلیق و فرمان":"suspension steering","چرخ و تایر":"wheel tire","گیربکس و کلاچ":"transmission clutch","اگزوز":"exhaust","برق":"starter alternator","خنک‌کاری":"cooling system","تهویه":"car AC compressor","بو و دود":"exhaust smoke"};
+const T={"تق‌تق":"knocking ticking","جیغ":"squealing","هوم":"humming whine","غرش":"grinding","سوت":"whistling","قیژ":"squeaking","ناله":"whining","لرزش":"vibration","پف‌پف":"misfire","لگد":"slipping jerk","هیس":"hissing","کوبش":"deep knock","تیک":"clicking","بو/دود":"problem"};
+const f={cat:"",t:"",sev:"",fav:"",m:"",z:"",q:""};
+const ZONES={front:["موتور","خنک‌کاری","برق"],cabin:["تهویه"],under:["گیربکس و کلاچ","اگزوز"],wheel:["چرخ و تایر","ترمز","تعلیق و فرمان"],smoke:["بو و دود"]};
+const $=s=>document.querySelector(s);
+const norm=s=>String(s).replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/\u200c/g," ");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let favs=new Set(),cmp=[];
+try{favs=new Set(JSON.parse(localStorage.getItem("fav")||"[]"))}catch(e){}
+const save=()=>{try{localStorage.setItem("fav",JSON.stringify([...favs]))}catch(e){}};
+DATA.forEach((d,i)=>{d.id=i;d._s=norm(JSON.stringify(d))});
+const uniq=k=>[...new Set(DATA.map(d=>d[k]))];
+function chips(id,vals,key,label){
+  const box=$("#"+id);
+  ["",...vals].forEach(val=>{
+    const b=document.createElement("button");b.className="chip";
+    b.textContent=val===""?"همه":(label?label(val):val);b.setAttribute("aria-pressed",val==="");
+    b.onclick=()=>{f[key]=val;box.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));render()};
+    box.appendChild(b);
+  });
+}
+chips("cats",uniq("cat"),"cat");chips("types",uniq("t"),"t");
+chips("sevs",[1,2,3],"sev",x=>SEV[x][0]);chips("favs",[1],"fav",()=>"⭐ ذخیره‌شده");chips("mods",[...new Set(DATA.flatMap(d=>d.m||[]))],"m");
+$("#q").oninput=e=>{f.q=norm(e.target.value.trim());render()};
+$("#sort").onchange=render;
+$("#theme").onclick=()=>{const r=document.documentElement,d=r.dataset.theme==="dark"||(!r.dataset.theme&&matchMedia("(prefers-color-scheme:dark)").matches);r.dataset.theme=d?"light":"dark"};
+const enc=encodeURIComponent,qs=d=>d.q||`${C[d.cat]||""} ${T[d.t]||""} car sound`;
+function render(){document.querySelectorAll(".z").forEach(z=>z.setAttribute("aria-pressed",z.dataset.z===f.z));
+  let r=DATA.filter(d=>(!f.cat||d.cat===f.cat)&&(!f.t||d.t===f.t)&&(!f.sev||d.sev===f.sev)&&(!f.fav||favs.has(d.id))&&(!f.m||!d.m||d.m.includes(f.m))&&(!f.z||ZONES[f.z].includes(d.cat))&&(!f.q||d._s.includes(f.q)));
+  if($("#sort").value==="1")r=[...r].sort((a,b)=>b.sev-a.sev);
+  $("#count").textContent=r.length+" مورد از "+DATA.length;
+  $("#list").innerHTML=r.map(d=>`<article id="c${d.id}" style="--c:${SEV[d.sev][1]}">
+<h2>${esc(d.title)}</h2>
+<p class="meta"><span>${esc(d.cat)}</span><span>نوع: ${esc(d.t)}</span><span class="sev">${SEV[d.sev][0]}</span><span>زمان بروز: ${esc(d.when)}</span>${d.cost?`<span>هزینه‌ی نسبی: ${"$".repeat(d.cost)}</span>`:""}${d.m?`<span>مخصوص: ${esc(d.m.join("، "))}</span>`:""}</p>${d.audio?`<audio controls preload="none" src="${esc(d.audio)}"></audio>`:""}
+<p class="snd">${esc(d.sound)}</p>
+<ul>${d.causes.map(c=>`<li>${esc(c)}</li>`).join("")}</ul>
+<p><b>اقدام:</b> ${esc(d.act)}</p>
+<div class="tools">
+<button data-a="fav" data-id="${d.id}">${favs.has(d.id)?"⭐ ذخیره شد":"☆ ذخیره"}</button>
+<label><input type="checkbox" data-a="cmp" data-id="${d.id}" ${cmp.includes(d.id)?"checked":""}> مقایسه</label>
+<button data-a="link" data-id="${d.id}">🔗 کپی لینک</button>
+<span>🎧</span>${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">▶ نمونه‌صدا (منبع)</a>`:""}
+<a href="https://www.youtube.com/results?search_query=${enc(qs(d))}" target="_blank" rel="noopener">یوتیوب</a>
+<a href="https://open.spotify.com/search/${enc(qs(d))}" target="_blank" rel="noopener">اسپاتیفای</a>
+<a href="https://www.aparat.com/search/${enc(d.title+" صدا")}" target="_blank" rel="noopener">آپارات</a>
+</div></article>`).join("")||"<p>موردی پیدا نشد.</p>";
+}
+function bar(){$("#cbar").hidden=cmp.length<2;$("#go").textContent="مقایسه‌ی "+cmp.length+" مورد"}
+$("#list").onclick=e=>{
+  const el=e.target.closest("[data-a]");if(!el)return;
+  const id=+el.dataset.id,a=el.dataset.a;
+  if(a==="fav"){favs.has(id)?favs.delete(id):favs.add(id);save();render()}
+  if(a==="link"){const u=location.origin+location.pathname+"#c"+id;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>el.textContent="✔ کپی شد").catch(()=>prompt("لینک:",u))}
+  if(a==="cmp"){
+    if(el.checked){if(cmp.length>=3){el.checked=false;return}cmp.push(id)}else cmp=cmp.filter(x=>x!==id);
+    bar();
+  }
+};
+$("#clr").onclick=()=>{cmp=[];bar();render()};
+$("#close").onclick=()=>$("#dlg").close();
+$("#go").onclick=()=>{
+  const rows=[["عنوان",d=>d.title],["دسته",d=>d.cat],["نوع صدا",d=>d.t],["شدت",d=>SEV[d.sev][0]],["توصیف",d=>d.sound],["زمان بروز",d=>d.when],["علت‌ها",d=>d.causes.join("، ")],["اقدام",d=>d.act]];
+  const ds=cmp.map(i=>DATA[i]);
+  $("#tbl").innerHTML="<table>"+rows.map(([h,fn])=>`<tr><th>${h}</th>${ds.map(d=>`<td>${esc(fn(d))}</td>`).join("")}</tr>`).join("")+"</table>";
+  $("#dlg").showModal();
+};
+document.querySelectorAll(".z").forEach(z=>{const t=()=>{f.z=f.z===z.dataset.z?"":z.dataset.z;render()};z.onclick=t;z.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();t()}}});
+const setChip=(id,v)=>[...$("#"+id).querySelectorAll("button")].find(b=>b.textContent===v)?.click();
+function wiz(c){const b=$("#wb");
+  if(!c){b.innerHTML="<p>مشکل مربوط به کدام بخش است؟</p><div class=chips>"+uniq("cat").map(x=>`<button class=chip data-c="${esc(x)}">${esc(x)}</button>`).join("")+"</div>";return}
+  const ts=[...new Set(DATA.filter(d=>d.cat===c).map(d=>d.t))];
+  b.innerHTML=`<p>صدا یا نشانه چه شکلی است؟ (${esc(c)})</p><div class=chips>`+ts.map(t=>`<button class=chip data-c="${esc(c)}" data-t="${esc(t)}">${esc(t)}</button>`).join("")+`</div><p><button class=ico data-c="">بازگشت</button></p>`}
+$("#wb").onclick=e=>{const el=e.target.closest("button[data-c]");if(!el)return;
+  if(el.dataset.t){f.z="";setChip("cats",el.dataset.c);setChip("types",el.dataset.t);$("#wz").close();$("#list").scrollIntoView()}else wiz(el.dataset.c)};
+$("#bw").onclick=()=>{wiz("");$("#wz").showModal()};
+$("#bl").onclick=()=>$("#lt").showModal();
+$("#lb").innerHTML=LIGHTS.map(l=>`<article style="--c:${SEV[l.u][1]}"><h2>${l.i} ${esc(l.n)}</h2><p class="meta"><span class="sev">${SEV[l.u][0]}</span></p><p>${esc(l.m)}</p><p><b>اقدام:</b> ${esc(l.a)}</p></article>`).join("");
+document.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>b.closest("dialog").close());
+render();bar();
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>

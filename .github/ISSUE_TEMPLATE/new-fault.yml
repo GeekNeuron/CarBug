@@ -1,0 +1,18 @@
+name: پیشنهاد ایراد یا صدای جدید
+description: یک ایراد را برای افزودن به مرجع پیشنهاد دهید
+labels: [data]
+body:
+  - type: input
+    attributes: {label: عنوان, placeholder: "جیغ نازک هنگام ترمز"}
+    validations: {required: true}
+  - type: input
+    attributes: {label: دسته و نوع صدا, placeholder: "ترمز / جیغ"}
+  - type: textarea
+    attributes: {label: توصیف صدا و زمان بروز}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: علت‌های محتمل و اقدام پیشنهادی}
+  - type: input
+    attributes: {label: خودرو (اختیاری), placeholder: "پراید"}
+  - type: input
+    attributes: {label: لینک نمونه‌صدا (اختیاری)}
