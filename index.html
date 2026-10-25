@@ -12,20 +12,24 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol><symbol id="i-wiz" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol><symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-6"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol><symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9L7 7M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol><symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol><symbol id="i-head" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M4 14h3v6H4zM17 14h3v6h-3z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol></svg>
 <div class="app">
 <nav class="side" aria-label="ناوبری">
 <div class="logo" dir="ltr"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 23a12 12 0 1 1 24 0" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M9 21l4-5 3 3 6-8" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>CarBug</span></div>
-<button data-v="lib" class="on"><i>📋</i><span>عیب‌ها</span></button>
-<button data-v="wiz"><i>🩺</i><span>عیب‌یاب</span></button>
-<button data-v="lights"><i>🚦</i><span>چراغ‌ها</span></button>
-<button data-v="saved"><i>⭐</i><span>ذخیره‌ها</span></button>
-<button id="theme" class="tbtn" aria-label="تغییر تم"><i>🌓</i><span>تم</span></button>
+<button data-v="dash" class="on"><i><svg class="i" aria-hidden="true"><use href="#i-home"/></svg></i><span>داشبورد</span></button>
+<button data-v="lib"><i><svg class="i" aria-hidden="true"><use href="#i-list"/></svg></i><span>عیب‌ها</span></button>
+<button data-v="wiz"><i><svg class="i" aria-hidden="true"><use href="#i-wiz"/></svg></i><span>عیب‌یاب</span></button>
+<button data-v="lights"><i><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg></i><span>چراغ‌ها</span></button>
+<button data-v="saved"><i><svg class="i" aria-hidden="true"><use href="#i-star"/></svg></i><span>ذخیره‌ها</span></button>
+<button data-v="set" class="tbtn"><i><svg class="i" aria-hidden="true"><use href="#i-gear"/></svg></i><span>تنظیمات</span></button>
 </nav>
 <div class="content">
 <header class="topbar"><input type="search" id="q" placeholder="جستجو: «ترمز»، «جیغ»، «دود سفید»…" aria-label="جستجو"></header>
 <main>
-<section id="v-lib" class="view">
-<div class="stats" id="stats"></div>
+<section id="v-dash" class="view"><h2>خلاصه‌ی وضعیت</h2><div class="stats" id="stats"></div>
+<div class="quick-grid"><button class="quick" data-v="lib"><svg class="i" aria-hidden="true"><use href="#i-list"/></svg><b>کتابخانه‌ی عیب‌ها</b><span>جستجو، فیلتر و نقشه‌ی محل صدا</span></button><button class="quick" data-v="wiz"><svg class="i" aria-hidden="true"><use href="#i-wiz"/></svg><b>عیب‌یاب</b><span>قدم‌به‌قدم تا علت محتمل</span></button><button class="quick" data-v="lights"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg><b>چراغ‌های داشبورد</b><span>معنی و فوریت هر چراغ</span></button></div>
+<h2>نیازمند توجه فوری</h2><div id="top3" class="mini-grid"></div></section>
+<section id="v-lib" class="view" hidden><h2>کتابخانه‌ی عیب‌ها</h2>
 <div class="hero">
 <div class="panel"><h2>نقشه‌ی محل صدا</h2>
 <svg viewBox="0 0 420 150" role="group" aria-label="نقشه‌ی خودرو">
@@ -46,6 +50,11 @@
 </section>
 <section id="v-wiz" class="view" hidden><h2>عیب‌یاب مرحله‌ای</h2><div id="wb"></div></section>
 <section id="v-lights" class="view" hidden><h2>چراغ‌های داشبورد</h2><div id="lb" class="grid"></div></section>
+<section id="v-set" class="view" hidden><h2>تنظیمات</h2>
+<div class="panel set"><h3>تم</h3><div class="seg" role="group" aria-label="تم"><button data-theme-set="light" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg> روشن</button><button data-theme-set="dark" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> تاریک</button><button data-theme-set="auto" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-auto"/></svg> خودکار</button></div></div>
+<div class="panel set"><label class="sw"><span><b>انیمیشن‌ها</b><small>برای دستگاه‌های کند یا حساس به حرکت خاموش کنید</small></span><input type="checkbox" id="motion"><i></i></label></div>
+<div class="panel set"><h3>داده‌ها</h3><button class="btn ghost" id="clrfav"><svg class="i" aria-hidden="true"><use href="#i-trash"/></svg> پاک‌کردن ذخیره‌ها</button><button class="btn ghost" id="clrcache"><svg class="i" aria-hidden="true"><use href="#i-trash"/></svg> پاک‌کردن حافظه‌ی آفلاین</button></div>
+<div class="panel set"><h3>درباره</h3><p class="note" style="margin:0">CarBug، مرجع صدا و ایرادات خودرو. داده‌ها راهنما هستند و جایگزین تشخیص مکانیک نیستند.</p></div></section>
 <p class="note">این فهرست فقط راهنما است و جایگزین مکانیک یا دستگاه دیاگ نیست. لینک‌های صدا جستجو در سایت‌های بیرونی‌اند.</p>
 </main>
 </div>

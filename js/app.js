@@ -4,7 +4,9 @@ const C={"موتور":"engine","ترمز":"brake","تعلیق و فرمان":"su
 const T={"تق‌تق":"knocking ticking","جیغ":"squealing","هوم":"humming whine","غرش":"grinding","سوت":"whistling","قیژ":"squeaking","ناله":"whining","لرزش":"vibration","پف‌پف":"misfire","لگد":"slipping jerk","هیس":"hissing","کوبش":"deep knock","تیک":"clicking","بو/دود":"problem"};
 const ZONES={front:["موتور","خنک‌کاری","برق"],cabin:["تهویه"],under:["گیربکس و کلاچ","اگزوز"],wheel:["چرخ و تایر","ترمز","تعلیق و فرمان"],smoke:["بو و دود"]};
 const f={cat:"",t:"",sev:0,fav:0,m:"",z:"",q:""},W={c:"",t:""};
-const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let cfg={theme:"auto",motion:true};try{cfg={...cfg,...JSON.parse(localStorage.getItem("cfg")||"{}")}}catch(e){}
+const RM=()=>matchMedia("(prefers-reduced-motion:reduce)").matches||!cfg.motion;
+function applyCfg(){const r=document.documentElement;cfg.theme==="auto"?delete r.dataset.theme:r.dataset.theme=cfg.theme;r.dataset.motion=cfg.motion?"on":"off";try{localStorage.setItem("cfg",JSON.stringify(cfg))}catch(e){}$$("[data-theme-set]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.themeSet===cfg.theme));$("#motion").checked=cfg.motion}
 const norm=s=>String(s).replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/\u200c/g," ");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const enc=encodeURIComponent,qs=d=>d.q||`${C[d.cat]||""} ${T[d.t]||""} car sound`;
@@ -14,7 +16,7 @@ try{favs=new Set(JSON.parse(localStorage.getItem("fav")||"[]"))}catch(e){}
 const save=()=>{try{localStorage.setItem("fav",JSON.stringify([...favs]))}catch(e){}};
 DATA.forEach((d,i)=>{d.id=i;d._s=norm(JSON.stringify(d))});
 
-function cnt(el,to){if(RM){el.textContent=to;return}const t0=performance.now();(function s(t){const p=Math.min((t-t0)/800,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(s)})(t0)}
+function cnt(el,to){if(RM()){el.textContent=to;return}const t0=performance.now();(function s(t){const p=Math.min((t-t0)/800,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(s)})(t0)}
 function stats(){
   const n=DATA.length,by=k=>DATA.filter(d=>d.sev===k).length;
   $("#stats").innerHTML=`<div class="tile"><b class="num" data-n="${n}">0</b><span class="lbl">عیب ثبت‌شده در ${uniq("cat").length} دسته</span></div>`+
@@ -34,19 +36,19 @@ function card(d,i,p){
   const y=enc(qs(d)),on=favs.has(d.id);
   return `<article class="card${open.has(d.id)?" open":""}" id="${p}${d.id}" data-s="${d.sev}" style="--c:${SEV[d.sev][1]};--i:${Math.min(i,12)}">
 <div class="top"><button class="head" data-a="tog" data-id="${d.id}"><span class="lamp"></span><div><h3>${esc(d.title)}</h3><p class="meta"><span>${esc(d.cat)}</span><span>${esc(d.t)}</span><span class="sev">${SEV[d.sev][0]}</span>${d.cost?`<span>هزینه ${"$".repeat(d.cost)}</span>`:""}${d.m?`<span>${esc(d.m.join("، "))}</span>`:""}</p></div></button>
-<button class="star${on?" on":""}" data-a="fav" data-id="${d.id}" aria-label="ذخیره">★</button></div>
+<button class="star${on?" on":""}" data-a="fav" data-id="${d.id}" aria-label="ذخیره"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg></button></div>
 <p class="snd">${esc(d.sound)}</p>
 <div class="more"><div><p class="meta">زمان بروز: ${esc(d.when)}</p><ul>${d.causes.map(c=>`<li>${esc(c)}</li>`).join("")}</ul><p><b>اقدام:</b> ${esc(d.act)}</p>
 ${d.audio?`<audio controls preload="none" src="${esc(d.audio)}"></audio>`:""}
-<div class="tools"><label><input type="checkbox" data-a="cmp" data-id="${d.id}" ${cmp.includes(d.id)?"checked":""}> مقایسه</label><button data-a="link" data-id="${d.id}">🔗 کپی لینک</button><span>🎧</span>
-${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">▶ منبع</a>`:""}
+<div class="tools"><label><input type="checkbox" data-a="cmp" data-id="${d.id}" ${cmp.includes(d.id)?"checked":""}> مقایسه</label><button data-a="link" data-id="${d.id}"><svg class="i" aria-hidden="true"><use href="#i-link"/></svg> کپی لینک</button><svg class="i" aria-hidden="true"><use href="#i-head"/></svg>
+${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> منبع</a>`:""}
 <a href="https://www.youtube.com/results?search_query=${y}" target="_blank" rel="noopener">یوتیوب</a><a href="https://open.spotify.com/search/${y}" target="_blank" rel="noopener">اسپاتیفای</a><a href="https://www.aparat.com/search/${enc(d.title+" صدا")}" target="_blank" rel="noopener">آپارات</a></div></div></div></article>`;
 }
 function render(){
   $$(".z").forEach(z=>z.setAttribute("aria-pressed",z.dataset.z===f.z));
   let r=DATA.filter(d=>(!f.cat||d.cat===f.cat)&&(!f.t||d.t===f.t)&&(!f.sev||d.sev===f.sev)&&(!f.fav||favs.has(d.id))&&(!f.m||!d.m||d.m.includes(f.m))&&(!f.z||ZONES[f.z].includes(d.cat))&&(!f.q||d._s.includes(f.q)));
   if($("#sort").value==="1")r=[...r].sort((a,b)=>b.sev-a.sev);
-  $("#count").textContent=(f.fav?"ذخیره‌شده‌ها: ":"")+r.length+" مورد";
+  $("#count").innerHTML=(f.fav?"ذخیره‌شده‌ها: ":"")+r.length+" مورد"+(f.sev?` <button class="chip" data-sev="${f.sev}" aria-pressed="true">شدت ${SEV[f.sev][0]} ✕</button>`:"");
   $("#list").innerHTML=r.map((d,i)=>card(d,i,"c")).join("")||"<p class='note'>موردی پیدا نشد.</p>";
 }
 function wiz(){
@@ -58,17 +60,18 @@ function wiz(){
   else h+=`<div class="grid">${DATA.filter(d=>d.cat===c&&d.t===t).sort((a,b)=>b.sev-a.sev).map((d,i)=>card(d,i,"w")).join("")}</div><p><button class="btn ghost" data-w="back">بازگشت</button><button class="btn ghost" data-w="reset">شروع دوباره</button></p>`;
   $("#wb").innerHTML=h;
 }
+function dash(){$("#top3").innerHTML=DATA.filter(d=>d.sev===3).slice(0,4).map((d,i)=>`<div class="mini" style="--c:${SEV[3][1]};--i:${i}"><span class="lamp"></span><div><b>${esc(d.title)}</b><span class="meta">${esc(d.cat)}</span></div></div>`).join("")}
 function nav(v){
   f.fav=v==="saved"?1:0;const k=v==="saved"?"lib":v;
   $$(".view").forEach(s=>s.hidden=s.id!=="v-"+k);
   $$(".side [data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
-  if(k==="lib")render();if(k==="wiz")wiz();scrollTo({top:0});
+  if(k==="dash")dash();if(k==="lib")render();if(k==="wiz")wiz();scrollTo({top:0});
 }
 document.addEventListener("click",e=>{
   const el=e.target.closest("[data-a],[data-w],[data-v],[data-sev],.z");if(!el)return;
   const D=el.dataset,id=+D.id;
   if(D.v)return nav(D.v);
-  if(D.sev){f.sev=f.sev===+D.sev?0:+D.sev;$$(".ring").forEach(r=>r.setAttribute("aria-pressed",+r.dataset.sev===f.sev));return render()}
+  if(D.sev){f.sev=f.sev===+D.sev?0:+D.sev;$$(".ring").forEach(r=>r.setAttribute("aria-pressed",+r.dataset.sev===f.sev));return nav("lib")}
   if(D.z!==undefined){f.z=f.z===D.z?"":D.z;return render()}
   if(D.w){if(D.w==="c")W.c=D.x;else if(D.w==="t")W.t=D.x;else if(D.w==="back"){W.t?W.t="":W.c=""}else W.c=W.t="";return wiz()}
   if(D.a==="tog"){const c=el.closest(".card"),o=c.classList.toggle("open");open[o?"add":"delete"](id)}
@@ -91,9 +94,12 @@ $("#go").onclick=()=>{
 $$(".z").forEach(z=>z.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();z.click()}});
 $("#q").oninput=e=>{f.q=norm(e.target.value.trim());if($("#v-lib").hidden)nav("lib");else render()};
 $("#sort").onchange=render;
-$("#theme").onclick=()=>{const r=document.documentElement,d=r.dataset.theme==="dark"||(!r.dataset.theme&&matchMedia("(prefers-color-scheme:dark)").matches);r.dataset.theme=d?"light":"dark"};
+$$("[data-theme-set]").forEach(b=>b.onclick=()=>{cfg.theme=b.dataset.themeSet;applyCfg()});
+$("#motion").onchange=e=>{cfg.motion=e.target.checked;applyCfg()};
+$("#clrfav").onclick=e=>{favs.clear();save();render();e.currentTarget.lastChild.textContent=" ✔ پاک شد"};
+$("#clrcache").onclick=async e=>{try{for(const k of await caches.keys())await caches.delete(k)}catch(x){}e.currentTarget.lastChild.textContent=" ✔ پاک شد"};
 $("#lb").innerHTML=LIGHTS.map((l,i)=>`<article class="lc" data-u="${l.u}" style="--c:${SEV[l.u][1]};--i:${i}"><span class="bulb">${l.i}</span><div><h3>${esc(l.n)}</h3><span class="sev">${SEV[l.u][0]}</span><p>${esc(l.m)}</p><p><b>اقدام:</b> ${esc(l.a)}</p></div></article>`).join("");
-stats();chips("cats",uniq("cat"),"cat");chips("types",uniq("t"),"t");chips("mods",[...new Set(DATA.flatMap(d=>d.m||[]))],"m");
+applyCfg();dash();stats();chips("cats",uniq("cat"),"cat");chips("types",uniq("t"),"t");chips("mods",[...new Set(DATA.flatMap(d=>d.m||[]))],"m");
 render();bar();
 if(/^#c\d+$/.test(location.hash))setTimeout(()=>{const c=$(location.hash);c&&(c.classList.add("open"),open.add(+location.hash.slice(2)),c.scrollIntoView({block:"center"}))},300);
 if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
